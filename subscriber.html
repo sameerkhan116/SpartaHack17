@@ -24,7 +24,7 @@
           <li><a href="insert.html">New Post</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="subscribe.html">Subscribe</a></li>
+          <li><a href="subscriber.html">Subscribe</a></li>
         </ul>
     </div>
   </div>
@@ -37,34 +37,30 @@
     <div class = "col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4">
       <div class = "site-heading">
         <div class="well">
-			<form action="insertx.php" method="POST">
-				<div class = "form-group" style="color:black; font-family: 'Lora;'">
-					Restaurant:<br>
-					<input type="text" class="form-control" name="rname">
-				</div>
-				<div class = "form-group" style="color:black; font-family: 'Lora;'">
-					City:<br>
-					<input type="text" class="form-control" name="city">
-				</div>
-				<div class = "form-group" style="color:black; font-family: 'Lora;'">
-					Title:<br>
-					<input type="text" class = "form-control" name="Title">
-				</div>
-				<div class = "form-group" style="color:black; font-family: 'Lora;'">
-	  				Description:<br>
-	 				<input type="text" class = "form-control" name="content">	
-	  			</div>
-				<div class = "form-group">
-					<button type="submit" name="submit" class="btn btn-success">Post!</button>
-				</div>
-			</form>
-			</div>
+      <form action="subscriber.php" method="POST">
+        <div class = "form-group" style="color:black; font-family: 'Lora;'">
+          City:<br>
+          <input type="text" class="form-control" name="city">
+        </div>
+        <div class = "form-group" style="color:black; font-family: 'Lora;'">
+          Phone Number:<br>
+          <input type="text" class = "form-control" name="phonen">
+        </div>
+        <div class = "form-group" style="color:black; font-family: 'Lora;'">
+          Carrier:<br>
+          <input type="text" class = "form-control" name="carrier">
+        </div>
+        <div class = "form-group">
+          <button type="submit" name="submit" class="btn btn-success">Submit!</button>
+        </div>
+        </div>
+      </form>
+      </div>
       </div>
     </div>
   </div>
 </div>
 </header>
-
 </body>
 </head>
 </html>

@@ -41,7 +41,7 @@ $comments = mysql_query($query) or trigger_error(mysql_error().$query);;
           <li><a href="insert.html">New Post</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="subscribe.html">Subscribe</a></li>
+          <li><a href="subscriber.html">Subscribe</a></li>
         </ul>
     </div>
   </div>

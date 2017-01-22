@@ -11,14 +11,17 @@ mysql_select_db($db_name);
 
 if (isset($_POST['submit'])) {
 $rname = $_POST['rname'];
+$city = $_POST['city'];
 $Title = $_POST['Title'];
 $content = $_POST['content'];
 $datex = date( 'Y-m-d H:i:s' );
 
-$order = mysql_query("INSERT INTO blog_post (rname, Title, content, datex) VALUES ('$rname', '$Title', '$content', '$datex') ");
+$order = mysql_query("INSERT INTO blog_post (rname, city, Title, content, datex) VALUES ('$rname', '$city', '$Title', '$content', '$datex') ");
 
 if ($order) {
     echo '<br>Input data is successful';
+    $command = escapeshellcmd('sparta.py');
+    $output = shell_exec($command);
 } else {
     echo '<br>Input data is not valid';
 }

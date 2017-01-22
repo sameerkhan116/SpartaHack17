@@ -20,6 +20,7 @@
    
    while($row = mysql_fetch_assoc($retval)) {
       echo "Restaurant:{$row['rname']}  <br> ".
+         "City: {$row['city']} <br> ".
          "Title: {$row['Title']} <br> ".
          "Description: {$row['content']} <br> ".
          "--------------------------------<br>";
