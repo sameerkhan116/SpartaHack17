@@ -1,20 +1,3 @@
-<? include 'insertx.php';
-
-$con = mysql_connect("localhost","root","");
- 
-if (!$con)
-{
-  die('Could not connect: ' . mysql_error());
-}
-
-$db_name = 'Blog';
-
-mysql_select_db("$db_name");
-
-$query = "SELECT * FROM blog_post order by sid DESC LIMIT 10";
-
-$comments = mysql_query($query) or trigger_error(mysql_error().$query);;
-?>
 <html>
 <head>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -62,10 +45,25 @@ $comments = mysql_query($query) or trigger_error(mysql_error().$query);;
   </div>
 </div>
 </header>
+    
+<h1 class = 'text-center'>Latest Posts</h1>
+<?php include 'insertx.php';
 
-<?php
+$con = mysql_connect("localhost","root","");
+ 
+if (!$con)
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-echo "<h1 class = 'text-center'>Latest Posts</h1>";
+$db_name = 'Blog';
+
+mysql_select_db("$db_name");
+
+$query = "SELECT * FROM blog_post order by sid DESC LIMIT 10";
+
+$comments = mysql_query($query) or trigger_error(mysql_error().$query);;
+    
 while($row = mysql_fetch_array($comments, MYSQL_ASSOC))
 {
   $rname = $row['rname'];
@@ -77,7 +75,6 @@ while($row = mysql_fetch_array($comments, MYSQL_ASSOC))
   $Title = htmlspecialchars($row['Title'],ENT_QUOTES);
   $content = htmlspecialchars($row['content'],ENT_QUOTES);
   $datex = htmlspecialchars($row['datex'],ENT_QUOTES);
-  
   
   echo " 
   <div class = 'container'>

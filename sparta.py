@@ -1,90 +1,116 @@
-import xlrd
 import smtplib
 import MySQLdb
 from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
-to=[]
-name=[]
-age=[]
-income=[]
+from email.MIMEText import MIMEText 
+
+sid=[]
+rname=[]
+location=[]
+title=[]
+content=[]
 db=MySQLdb.connect("localhost","root","","Blog")
 cursor=db.cursor()
-zip=0
+try:
+    cursor.execute("Select * from blog_post")
+    results = cursor.fetchall()
+    for row in results:
+        sid.append(row[0])
+        rname.append(row[1])
+        location.append(row[2])
+        title.append(row[3])
+        content.append(row[4])
+        #print sid,rname,location,title,content
+except:
+    print "Error:unable to fetch post"
+db.close()
+
+uid=[]
+city=[]
+phoneno=[]
+carrier=[]
+
+db1=MySQLdb.connect("localhost","root","","Blog")
+cursor=db1.cursor()
 try:
     cursor.execute("Select * from subscribers")
     results = cursor.fetchall()
     for row in results:
-        city.append(row[0])
-        phonen.append(row[1])
-        carrier.append(row[2])
-        #print name,age,income
+        uid.append(row[0])
+        city.append(row[1])
+        phoneno.append(row[2])
+        carrier.append(row[3])
+        #print uid,city,phoneno,carrier
 except:
-    print "Error:unable to fetch data"
-db.close()
-for i in range(sheet.nrows):
-    to.append(data[2][i])
-    if carrier[i][3]=="Altel":
+    print "Error:unable to fetch carrier"
+db1.close()
+to=[]
+for i in range(len(carrier)):
+    to.append(phoneno[i])
+    if carrier[i]=="Altel":
         temp=to.pop()
         temp=temp[:len(temp)]+"@sms.alltelwireless.com"
         to.append(temp)
-    elif carrier[i][3]=="AT&T":
+    elif carrier[i]=="AT&T":
         temp=to.pop()
         temp=temp[:len(temp)]+"@txt.att.net"
         to.append(temp)
-    elif carrier[i][3]=="Boost Mobile":
+    elif carrier[i]=="Boost Mobile":
         temp=to.pop()
         temp=temp[:len(temp)]+"@sms.myboostmobile.com"
         to.append(temp)
-    elif carrier[i][3]=="Consumer Cellular":
+    elif carrier[i]=="Consumer Cellular":
         temp=to.pop()
         temp=temp[:len(temp)]+"@cingularme.com"
         to.append(temp)
-    elif carrier[i][3]=="Cricket Wireless":
+    elif carrier[i]=="Cricket Wireless":
         temp=to.pop()
         temp=temp[:len(temp)]+"@sms.mycricket.com"
         to.append(temp)
-    elif carrier[i][3]=="Google Fi":
+    elif carrier[i]=="Google Fi":
         temp=to.pop()
         temp=temp[:len(temp)]+"@msg.fi.google.com"
         to.append(temp)
-    elif carrier[i][3]=="Metro PCS":
+    elif carrier[i]=="Metro PCS":
         temp=to.pop()
         temp=temp[:len(temp)]+"@mymetropcs.com"
         to.append(temp)
-    elif carrier[i][3]=="Sprint":
+    elif carrier[i]=="Sprint":
         temp=to.pop()
         temp=temp[:len(temp)]+"@messaging.sprintpcs.com"
         to.append(temp)
-    elif carrier[i][3]=="T-Mobile":
+    elif carrier[i]=="T-Mobile":
         temp=to.pop()
         temp="1"+temp[len(temp):]+temp[:len(temp)]+"@tmomail.net"
         to.append(temp)
-    elif carrier[i][3]=="U.S. Cellular":
+    elif carrier[i]=="U.S. Cellular":
         temp=to.pop()
         temp=temp[:len(temp)]+"@email.uscc.net"
         to.append(temp)
-    elif carrier[i][3]=="Verizon":
+    elif carrier[i]=="Verizon":
         temp=to.pop()
         temp=temp[:len(temp)]+"@vtext.com"
         to.append(temp)
-    elif carrier[i][3]=="Virgin Mobile":
+    elif carrier[i]=="Virgin Mobile":
         temp=to.pop()
         temp=temp[:len(temp)]+"@vmobl.com"
         to.append(temp)
     else:
         continue
-
-fromaddr = "thedogoodproject2k17@gmail.com"
-toaddr = "12134217070@m@tmomail.net"
-msg = MIMEMultipart()
-msg['From'] = fromaddr
-msg['To'] = toaddr
-msg['Subject'] = "FREE FOOD"
-body = "MSU, East Lansing  "
-msg.attach(MIMEText(body, 'plain'))
-
-server = smtplib.SMTP('smtp.gmail.com', 587)
-server.starttls()
-server.login(fromaddr, "Dogoodsparta")
-server.sendmail(fromaddr, toaddr, msg.as_string())
-server.quit()
+#print to
+#print location
+lo=location.pop()
+for i in range(len(to)):
+    fromaddr = "thedogoodproject2k17@gmail.com"
+    toaddr = to[i]
+    msg = MIMEMultipart()
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "FREE FOOD"
+    body = str(lo[:len(lo)])+"  "
+    #print body
+    msg.attach(MIMEText(body, 'plain'))
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(fromaddr, "Dogoodsparta")
+    server.sendmail(fromaddr, toaddr, msg.as_string())
+    server.quit()
